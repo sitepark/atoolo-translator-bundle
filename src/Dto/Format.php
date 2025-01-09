@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Atoolo\Translator\Dto;
 
-enum Format
+enum Format: string
 {
-    case TEXT;
-    case HTML;
+    case TEXT = 'text';
+    case HTML = 'html';
 }
