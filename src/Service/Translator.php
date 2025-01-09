@@ -73,7 +73,7 @@ class Translator
                 $translatedValue = $adapterTranslated[$position];
                 $translated[$hash] = $translatedValue;
                 $this->translationCache->delete($hash);
-                $this->translationCache->get($hash, function(ItemInterface $item) use ($translatedValue): string {
+                $this->translationCache->get($hash, function (ItemInterface $item) use ($translatedValue): string {
                     $item->expiresAfter($this->ttl);
                     return $translatedValue;
                 });

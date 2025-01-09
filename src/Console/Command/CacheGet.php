@@ -8,6 +8,7 @@ use Atoolo\Translator\Console\Command\Io\TypifiedInput;
 use Atoolo\Translator\Dto\Format;
 use Atoolo\Translator\Dto\TranslationParameter;
 use Atoolo\Translator\Service\TextHasher;
+use Psr\Cache\CacheItemPoolInterface;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
 use Symfony\Component\Console\Command\Command;
@@ -26,7 +27,7 @@ use Symfony\Contracts\Cache\CacheInterface;
 class CacheGet extends Command
 {
     public function __construct(
-        private readonly CacheInterface $translationCache,
+        private readonly CacheItemPoolInterface $translationCache,
         #[Autowire(service: 'atoolo_translator.textHasher')]
         private readonly TextHasher $textHasher,
     ) {
@@ -75,11 +76,22 @@ class CacheGet extends Command
         $translationParamter = new TranslationParameter($sourceLang, $targetLang, Format::TEXT);
         $hash = $this->textHasher->hash($text, $translationParamter);
 
-        $translation = $this->translationCache->get($hash, function () {
-            return null;
-        });
+        if (!$this->translationCache->hasItem($hash)) {
+            $io->text('No translation found in cache.');
+            return Command::SUCCESS;
+        }
 
-        $io->text($translation ?? 'No translation found in cache.');
+        $item = $this->translationCache->getItem($hash);
+
+        if (!$item->isHit()) {
+            $io->text('No translation found in cache.');
+            return Command::SUCCESS;
+        }
+
+        /** @var string $translated */
+        $translated = $item->get();
+
+        $io->text($translated);
 
         return Command::SUCCESS;
     }

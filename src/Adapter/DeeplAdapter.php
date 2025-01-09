@@ -36,12 +36,13 @@ class DeeplAdapter extends AbstractAdapter
             $text,
             $this->normalizeLang($parameter->sourceLang),
             $this->normalizeLang($parameter->targetLang),
-            $options
+            $options,
         );
         return array_map(static fn($translation) => $translation->text, $result);
     }
 
-    private function normalizeLang(string $lang): string{
+    private function normalizeLang(string $lang): string
+    {
         return match ($lang) {
             'en' => 'en-us',
             default => $lang,
