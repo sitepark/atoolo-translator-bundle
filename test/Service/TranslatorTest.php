@@ -38,7 +38,7 @@ class TranslatorTest extends TestCase
         ];
 
         $cache->method('get')->willReturnCallback(function (string $key) use ($cacheValues) {
-            return $cacheValues[$key];
+            return $cacheValues[$key] ?? null;
         });
 
         $adapter->method('translate')->willReturn([
@@ -48,7 +48,7 @@ class TranslatorTest extends TestCase
             'Telefon',
         ]);
 
-        $translator = new Translator($adapter, $cache, $textHasher);
+        $translator = new Translator($adapter, $cache, $textHasher, 'P1D');
 
 
         $translation = $translator->translate([
