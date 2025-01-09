@@ -15,9 +15,7 @@ class Translator
         private readonly AbstractAdapter $adapter,
         private readonly CacheInterface $translationCache,
         private readonly TextHasher $textHasher,
-    )
-    {
-    }
+    ) {}
 
     /**
      * @param array<string> $text
@@ -26,6 +24,7 @@ class Translator
      */
     public function translate(array $text, TranslationParameter $parameter): array
     {
+        /** @var array<string,string> $hashMapping */
         $hashMapping = [];
         foreach ($text as $value) {
             $hash = $this->textHasher->hash($value, $parameter);
@@ -34,6 +33,7 @@ class Translator
             });
         }
 
+        /** @var array<string,string> $toTranslate */
         $toTranslate = [];
         foreach ($hashMapping as $hash => $translation) {
             if ($translation === null) {
@@ -42,7 +42,9 @@ class Translator
         }
 
         if (empty($toTranslate)) {
-            return array_values($hashMapping);
+            /** @var array<string> $values */
+            $values = array_values($hashMapping);
+            return $values;
         }
 
         $adapterTranslated = $this->adapter->translate($toTranslate, $parameter);
@@ -56,6 +58,8 @@ class Translator
             }
         }
 
-        return array_values($hashMapping);
+        /** @var array<string> $values */
+        $values = array_values($hashMapping);
+        return $values;
     }
 }

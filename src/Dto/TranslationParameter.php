@@ -10,7 +10,5 @@ class TranslationParameter
         public string $sourceLang,
         public string $targetLang,
         public Format $format,
-    )
-    {
-    }
+    ) {}
 }

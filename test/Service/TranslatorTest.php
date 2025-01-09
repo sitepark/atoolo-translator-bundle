@@ -18,7 +18,6 @@ use Symfony\Contracts\Cache\CacheInterface;
 #[CoversClass(Translator::class)]
 class TranslatorTest extends TestCase
 {
-
     /**
      * @throws Exception
      * @throws InvalidArgumentException
@@ -28,7 +27,7 @@ class TranslatorTest extends TestCase
         $adapter = $this->createMock(AbstractAdapter::class);
         $cache = $this->createMock(CacheInterface::class);
         $textHasher = $this->createMock(TextHasher::class);
-        $textHasher->method('hash')->willReturnCallback(fn (string $text, TranslationParameter $parameter) => $text);
+        $textHasher->method('hash')->willReturnCallback(fn(string $text, TranslationParameter $parameter) => $text);
 
         $parameter = new TranslationParameter('en', 'de', Format::TEXT);
 

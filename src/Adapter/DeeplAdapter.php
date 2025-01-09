@@ -31,6 +31,7 @@ class DeeplAdapter extends AbstractAdapter
         if ($parameter->format === Format::HTML) {
             $options['tagHandling'] = 'html';
         }
-        return $this->translator->translateText($text, $parameter->sourceLang, $parameter->targetLang, $options);
+        $result = $this->translator->translateText($text, $parameter->sourceLang, $parameter->targetLang, $options);
+        return array_map(static fn($translation) => $translation->text, $result);
     }
 }
