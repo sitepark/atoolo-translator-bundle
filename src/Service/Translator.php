@@ -9,10 +9,12 @@ use Atoolo\Translator\Dto\TranslationParameter;
 use DateInterval;
 use DateMalformedIntervalStringException;
 use Psr\Cache\InvalidArgumentException;
+use Symfony\Component\DependencyInjection\Attribute\AsAlias;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
+#[AsAlias('atoolo_translator.translator')]
 class Translator
 {
     private DateInterval $ttl;
