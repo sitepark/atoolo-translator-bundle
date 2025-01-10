@@ -7,7 +7,6 @@ namespace Atoolo\Translator\Console\Command;
 use Atoolo\Translator\Console\Command\Io\TypifiedInput;
 use Atoolo\Translator\Dto\Format;
 use Atoolo\Translator\Dto\TranslationParameter;
-use Atoolo\Translator\Service\TextHasher;
 use Atoolo\Translator\Service\Translator;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\Console\Attribute\AsCommand;
@@ -17,8 +16,6 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
-use Symfony\Contracts\Cache\CacheInterface;
 
 #[AsCommand(
     name: 'translator:translate',

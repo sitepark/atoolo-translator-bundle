@@ -9,17 +9,15 @@ use Atoolo\Translator\Dto\TranslationParameter;
 use DeepL\DeepLException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
+/**
+ * @codeCoverageIgnore
+ */
 class DeeplAdapter extends AbstractAdapter
 {
-    private \DeepL\Translator $translator;
-
     /**
      * @throws DeepLException
      */
-    public function __construct(#[Autowire('%atoolo_translator.adapter.deepl.authKey%')] string $authKey)
-    {
-        $this->translator = new \DeepL\Translator($authKey);
-    }
+    public function __construct(private readonly \DeepL\Translator $translator) {}
 
     /**
      * @param array<string> $text

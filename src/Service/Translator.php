@@ -7,6 +7,7 @@ namespace Atoolo\Translator\Service;
 use Atoolo\Translator\Adapter\AbstractAdapter;
 use Atoolo\Translator\Dto\TranslationParameter;
 use DateInterval;
+use DateMalformedIntervalStringException;
 use Psr\Cache\InvalidArgumentException;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\Cache\CacheInterface;
@@ -16,6 +17,9 @@ class Translator
 {
     private DateInterval $ttl;
 
+    /**
+     * @throws DateMalformedIntervalStringException
+     */
     public function __construct(
         #[Autowire(service: 'atoolo_translator.translator.adapter')]
         private readonly AbstractAdapter $adapter,

@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Atoolo\Translator\Dto;
 
+/**
+ * @codeCoverageIgnore
+ */
 class TranslationParameter
 {
     public function __construct(

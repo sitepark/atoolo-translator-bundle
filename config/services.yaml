@@ -19,4 +19,5 @@ services:
         class: Atoolo\Translator\Service\TextHasher
 
     atoolo_translator.translator.adapter:
-      class: Atoolo\Translator\Adapter\DeeplAdapter
+      factory: ['@Atoolo\Translator\Adapter\DeepLTranslatorFactory', 'create']
+      class: 'Atoolo\Translator\Adapter\DeepLAdapter'
