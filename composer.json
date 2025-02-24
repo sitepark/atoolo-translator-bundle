@@ -19,7 +19,8 @@
         "symfony/dependency-injection": "^6.3 || ^7.0",
         "symfony/http-client": "^6.3 || ^7.0",
         "symfony/http-kernel": "^6.3 || ^7.0",
-        "symfony/yaml": "^6.3 || ^7.0"
+        "symfony/yaml": "^6.3 || ^7.0",
+        "ext-curl": "*"
     },
     "require-dev": {
         "dealerdirect/phpcodesniffer-composer-installer": "^1.0",

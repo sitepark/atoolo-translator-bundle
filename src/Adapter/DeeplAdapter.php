@@ -7,7 +7,6 @@ namespace Atoolo\Translator\Adapter;
 use Atoolo\Translator\Dto\Format;
 use Atoolo\Translator\Dto\TranslationParameter;
 use DeepL\DeepLException;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
 /**
  * @codeCoverageIgnore
