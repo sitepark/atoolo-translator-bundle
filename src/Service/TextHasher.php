@@ -10,6 +10,6 @@ class TextHasher
 {
     public function hash(string $text, TranslationParameter $parameter): string
     {
-        return $parameter->sourceLang . '->' . $parameter->targetLang . ':' . hash('sha256', $text);
+        return $parameter->sourceLang . '->' . $parameter->targetLang . '=' . hash('sha256', $text);
     }
 }
