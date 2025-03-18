@@ -1,1 +1,23 @@
 services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+    _instanceof:
+        Symfony\Component\Console\Command\Command:
+            tags: ['command']
+
+    Atoolo\Translator\Console\:
+        resource: '../src/Console'
+
+    Atoolo\Translator\Service\:
+      resource: '../src/Service'
+
+    Atoolo\Translator\Adapter\:
+      resource: '../src/Adapter'
+
+    atoolo_translator.textHasher:
+        class: Atoolo\Translator\Service\TextHasher
+
+    atoolo_translator.translator.adapter:
+      factory: ['@Atoolo\Translator\Adapter\DeepLTranslatorFactory', 'create']
+      class: 'Atoolo\Translator\Adapter\DeepLAdapter'
