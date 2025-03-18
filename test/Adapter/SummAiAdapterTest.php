@@ -19,7 +19,7 @@ class SummAiAdapterTest extends TestCase
     public function testTranslate(): void
     {
 
-        $this->markTestSkipped( 'Test sleeve for temporary real tests against the real interface.' );
+        $this->markTestSkipped('Test sleeve for temporary real tests against the real interface.');
 
         $user = 'email';
         $apiKey = '123;';

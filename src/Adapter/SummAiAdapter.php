@@ -15,8 +15,10 @@ use Symfony\Component\DependencyInjection\Attribute\Autowire;
 class SummAiAdapter extends AbstractAdapter
 {
     public function __construct(
-        #[Autowire('%atoolo_translator.adapter.summai.user%')] private readonly string $user,
-        #[Autowire('%atoolo_translator.adapter.summai.authKey%')] private readonly string $authKey,
+        #[Autowire('%atoolo_translator.adapter.summai.user%')]
+        private readonly string $user,
+        #[Autowire('%atoolo_translator.adapter.summai.authKey%')]
+        private readonly string $authKey,
     ) {}
 
     /**
@@ -33,12 +35,13 @@ class SummAiAdapter extends AbstractAdapter
         }
 
         $translated = [];
-        $stillRunning=0;
+        $stillRunning = 0;
         do {
             curl_multi_exec($multiCurl, $stillRunning);
-        } while($stillRunning > 0);
-        foreach($handles as $curl) {
-            $content = curl_multi_getcontent($curl);
+        } while ($stillRunning > 0);
+        foreach ($handles as $curl) {
+            $content = curl_multi_getcontent($curl) ?? '';
+            /** @var array{translated_text:string} $data */
             $data = json_decode($content, true, 512, JSON_THROW_ON_ERROR);
             $translated[] = $data['translated_text'];
             curl_multi_remove_handle($multiCurl, $curl);
@@ -64,15 +67,15 @@ class SummAiAdapter extends AbstractAdapter
             "is_new_lines" => true,
             "separator" => "none",
             "embolden_negative" => false,
-            "translation_language"=> $parameter->targetLang,
-            "is_test" => false
+            "translation_language" => $parameter->targetLang,
+            "is_test" => false,
         ];
         $curl = curl_init();
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Accept: application/json',
             'Content-Type: application/json',
-            'Authorization: Api-Key ' . $this->authKey
+            'Authorization: Api-Key ' . $this->authKey,
         ]);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data, JSON_THROW_ON_ERROR));
