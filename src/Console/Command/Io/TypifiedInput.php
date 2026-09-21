@@ -16,7 +16,7 @@ class TypifiedInput
         $value = $this->input->getOption($name);
         if (!is_string($value)) {
             throw new InvalidArgumentException(
-                'option ' . $name . ' must be a string: ' . $value,
+                'option ' . $name . ' must be a string',
             );
         }
         return $value;
